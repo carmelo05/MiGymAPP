@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e2e;
+            color: white;
+        }
+        .container {
+            background: #282a36;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .tabs button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #44475a;
+            color: white;
+            transition: 0.3s;
+        }
+        .tabs button.active {
+            background-color: #6272a4;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            background: #44475a;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        button.generate {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #50fa7b;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #282a36;
+        }
+        .output {
+            margin-top: 15px;
+            background: #44475a;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        button.logout {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #ff5555;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="active" onclick="switchTab('password')">Contraseña</button>
+            <button onclick="switchTab('phrase')">Frase</button>
+        </div>
+
+        <div id="password-section">
+            <label>Longitud de la contraseña: <input type="number" id="length" min="5" max="128" value="12"></label>
+            <div class="options">
+                <label><input type="checkbox" id="uppercase"> A-Z</label>
+                <label><input type="checkbox" id="lowercase"> a-z</label>
+                <label><input type="checkbox" id="numbers"> 0-9</label>
+                <label><input type="checkbox" id="special"> !@#&*</label>
+            </div>
+            <button class="generate" onclick="generatePassword()">Generar Contraseña</button>
+            <div class="output" id="password-output"></div>
+        </div>
+
+        <div id="phrase-section" style="display: none;">
+            <button class="generate" onclick="generatePhrase()">Generar Frase</button>
+            <div class="output" id="phrase-output"></div>
+        </div>
+
+        <button class="logout" onclick="logout()">Volver a MiGymAPP</button>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById('password-section').style.display = (tab === 'password') ? 'block' : 'none';
+            document.getElementById('phrase-section').style.display = (tab === 'phrase') ? 'block' : 'none';
+            document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.tabs button:nth-child(${tab === 'password' ? 1 : 2})`).classList.add('active');
+        }
+
+        function generatePassword() {
+            const length = document.getElementById("length").value;
+            const useUppercase = document.getElementById("uppercase").checked;
+            const useLowercase = document.getElementById("lowercase").checked;
+            const useNumbers = document.getElementById("numbers").checked;
+            const useSpecial = document.getElementById("special").checked;
+            
+            let charset = "";
+            if (useUppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (useLowercase) charset += "abcdefghijklmnopqrstuvwxyz";
+            if (useNumbers) charset += "0123456789";
+            if (useSpecial) charset += "!@#$%^&*()_+";
+            
+            if (!charset) {
+                document.getElementById("password-output").innerText = "Selecciona al menos una opción";
+                return;
+            }
+            
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                password += charset[Math.floor(Math.random() * charset.length)];
+            }
+            document.getElementById("password-output").innerText = password;
+        }
+
+        function generatePhrase() {
+            const phrases = [
+                "Que-la-fuerza-te-acompañe.",
+                "Houston,-tenemos-un-problema.",
+                "Voy-a-hacerle-una-oferta-que-no-podrá-rechazar.",
+                "Hasta-la-vista, baby.",
+                "Yo-soy-tu-padre.",
+                "La-vida-es-como-una-caja-de-chocolates.",
+                "Tócala otra vez, Sam.",
+                "E.T., mi casa, teléfono.",
+                "Francamente, querida, me importa un bledo.",
+                "No hay lugar como el hogar.",
+                "BRRRRR AAAH, LA 2BLEA",
+                "Oustin baby, la maravailla",
+                "Asi que corre corre corre corazon", 
+                "BAD BUNNY BABY, EL CONSEJO MALO"
+            ];
+            document.getElementById("phrase-output").innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        }
+
+        function logout() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

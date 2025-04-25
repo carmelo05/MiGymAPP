@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - MiGymApp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body.main-page {
+      background: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff9800;
+    }
+
+    .btn {
+      background-color: #2196f3;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #1976d2;
+    }
+
+    .content {
+      flex: 1;
+      padding: 60px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .intro h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-link {
+      color: #ffca28;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    .youtube-icon {
+      width: 32px;
+      height: 32px;
+      filter: brightness(0.8);
+      transition: filter 0.3s ease;
+    }
+
+    .youtube-icon:hover {
+      filter: brightness(1.2);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="main-page">
+  <header class="header">
+    <h1 class="logo">MiGymApp</h1>
+    <nav class="nav-links">
+      <a href="../static/login.html" class="btn">Iniciar Sesión</a>
+      <a href="../static/register.html" class="btn">Registrarse</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <section class="intro">
+      <h2>Bienvenido a MiGymApp</h2>
+      <p>Una aplicación web creada para ayudarte a registrar y seguir tu progreso en el gimnasio.</p>
+      <p>De ante mano le digo que esta en proceso, no esta terminada pero si esta leyendo esto es por el Docker compose funciono y subio correctamente.</p>
+      <p>Por eso le digo que se agarre fuerte porque lo que se viene, es la venida de Cristo. Amen bendicione.</p>
+      <p>Desarrollada con ❤️ por Alexner Asael Aquino Heredia  </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <a href="mailto:aalexner4@gmail.com" class="footer-link">Contactos</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://www.youtube.com/@alexneraquinoheredia3588" target="_blank">
+        <img src="../static/Dakirby309-Simply-Styled-YouTube.256.png" alt="YouTube" class="youtube-icon" />
+      </a>
+    </div>
+  </footer>
+</body>
+</html>
+

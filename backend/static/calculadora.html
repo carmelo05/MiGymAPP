@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Corporal - MiGymApp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-image: url('../static/17271656922719.jpg'); /* Ruta de tu imagen de fondo */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px); /* Fondo borroso */
+      position: relative;
+    }
+
+    .container {
+      max-width: 450px;
+      width: 100%;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      margin-top: 15px;
+      background-color: #e8f4fd;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    #gymButton {
+      background-color: #2ecc71;
+      margin-top: 20px;
+    }
+
+    #gymButton:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculadora Corporal</h2>
+
+    <label for="altura">Altura (cm):</label>
+    <input type="number" id="altura" placeholder="Ej. 170">
+
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" placeholder="Ej. 70">
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" placeholder="Ej. 25">
+
+    <label for="sexo">Sexo:</label>
+    <select id="sexo">
+      <option value="masculino">Masculino</option>
+      <option value="femenino">Femenino</option>
+    </select>
+
+    <button onclick="calcular()">Calcular</button>
+    <div class="result" id="resultado"></div>
+
+    <button id="gymButton" onclick="window.location.href='dashboard.html'">
+      Ir a MiGymApp
+    </button>
+  </div>
+
+  <script>
+    function calcular() {
+      const altura = parseFloat(document.getElementById("altura").value) / 100;
+      const peso = parseFloat(document.getElementById("peso").value);
+      const edad = parseInt(document.getElementById("edad").value);
+      const sexo = document.getElementById("sexo").value;
+
+      if (isNaN(altura) || isNaN(peso) || isNaN(edad)) {
+        alert("Por favor completa todos los campos correctamente.");
+        return;
+      }
+
+      const imc = peso / (altura * altura);
+      let clasificacion = "";
+      if (imc < 18.5) clasificacion = "Bajo peso";
+      else if (imc < 24.9) clasificacion = "Peso normal";
+      else if (imc < 29.9) clasificacion = "Sobrepeso";
+      else clasificacion = "Obesidad";
+
+      // Peso ideal (Fórmula de Devine)
+      let pesoIdeal = 0;
+      if (sexo === "masculino") {
+        pesoIdeal = 50 + 2.3 * ((altura * 100 - 152.4) / 2.54);
+      } else {
+        pesoIdeal = 45.5 + 2.3 * ((altura * 100 - 152.4) / 2.54);
+      }
+
+      // TMB (Fórmula de Mifflin-St Jeor)
+      let tmb = 0;
+      if (sexo === "masculino") {
+        tmb = 10 * peso + 6.25 * (altura * 100) - 5 * edad + 5;
+      } else {
+        tmb = 10 * peso + 6.25 * (altura * 100) - 5 * edad - 161;
+      }
+
+      // Recomendación
+      let recomendacion = "";
+      switch (clasificacion) {
+        case "Bajo peso":
+          recomendacion = "Te recomendamos una dieta más calórica y entrenamiento de fuerza.";
+          break;
+        case "Peso normal":
+          recomendacion = "¡Sigue así! Mantén una alimentación equilibrada y ejercicio regular.";
+          break;
+        case "Sobrepeso":
+          recomendacion = "Considera una dieta balanceada y más actividad física.";
+          break;
+        case "Obesidad":
+          recomendacion = "Consulta a un nutricionista. Es importante reducir el peso por salud.";
+          break;
+      }
+
+      const resultadoHTML = `
+        <strong>IMC:</strong> ${imc.toFixed(2)}<br>
+        <strong>Clasificación:</strong> ${clasificacion}<br>
+        <strong>Peso ideal:</strong> ${pesoIdeal.toFixed(1)} kg<br>
+        <strong>TMB:</strong> ${tmb.toFixed(0)} kcal/día<br>
+        <strong>Recomendación:</strong> ${recomendacion}
+      `;
+
+      document.getElementById("resultado").innerHTML = resultadoHTML;
+    }
+  </script>
+</body>
+</html>
+

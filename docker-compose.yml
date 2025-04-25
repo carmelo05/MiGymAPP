@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .               # ← Explícito
+      dockerfile: Dockerfile   # ← Especifica el Dockerfile si está en la raíz
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app         # ← Asegúrate de que app.py está dentro de ./backend
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: gimnasio_db
+      MYSQL_ROOT_PASSWORD: "Wu%JHh6k#KzShP"  # ← Cadenas entre comillas por caracteres especiales
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db_data:
+

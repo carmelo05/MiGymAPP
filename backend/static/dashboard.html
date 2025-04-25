@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - MiGymApp</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1e1e1e;
+      color: white;
+    }
+
+    header {
+      background-color: #333;
+      padding: 20px;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 24px;
+      color: #ff9800;
+      text-align: center;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #d32f2f;
+    }
+
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .profile {
+      margin: 20px auto;
+      padding: 15px;
+      background: #2e2e2e;
+      border-radius: 10px;
+      max-width: 300px;
+    }
+
+    .profile img {
+      width: 80px;
+      border-radius: 50%;
+    }
+
+    .section {
+      margin-top: 30px;
+      background: #2e2e2e;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .bar {
+      height: 20px;
+      background: #444;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .fill {
+      height: 100%;
+      background: #4caf50;
+      width: 0;
+      transition: width 0.3s ease;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff5722;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #e64a19;
+    }
+
+    /* Sección lateral derecha */
+    .side-buttons {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .side-buttons button {
+      width: 180px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">MiGymApp</div>
+    <button class="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+  </header>
+
+  <div class="content">
+    <h2 id="welcome">Bienvenido, Usuario</h2>
+
+    <div class="profile">
+      <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Perfil">
+      <h3 id="profileName">Usuario</h3>
+      <p>Miembro desde 2025</p>
+    </div>
+
+    <div class="section">
+      <h3>🏋️‍♂️ Rutinas de Hoy</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li>✅ Flexiones - 3x12</li>
+        <li>✅ Sentadillas - 4x10</li>
+        <li>☑️ Abdominales - 3x15</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>📈 Progreso</h3>
+
+      <label>Fuerza</label>
+      <div class="bar"><div id="barFuerza" class="fill"></div></div>
+
+      <label>Cardio</label>
+      <div class="bar"><div id="barCardio" class="fill"></div></div>
+
+      <label>Flexibilidad</label>
+      <div class="bar"><div id="barFlex" class="fill"></div></div>
+
+      <button class="btn" onclick="subirProgreso()">Registrar rutina completada</button>
+    </div>
+  </div>
+
+  <!-- Botones adicionales en la derecha -->
+  <div class="side-buttons">
+    <button class="btn" onclick="window.location.href='generador.html'">Generador de Contraseña</button>
+    <button class="btn" onclick="window.location.href='calculadora.html'">Calculadora de Peso Corporal</button>
+    <button class="btn" onclick="window.location.href='paz.html'">Meditación con sonidos relajantes</button>
+  </div>
+
+  <script>
+    const nombre = localStorage.getItem("username") || "Usuario";
+    document.getElementById("welcome").textContent = `Bienvenido, ${nombre}`;
+    document.getElementById("profileName").textContent = nombre;
+
+    const progreso = {
+      fuerza: 20,
+      cardio: 35,
+      flex: 15,
+    };
+
+    function actualizarBarras() {
+      document.getElementById("barFuerza").style.width = progreso.fuerza + "%";
+      document.getElementById("barCardio").style.width = progreso.cardio + "%";
+      document.getElementById("barFlex").style.width = progreso.flex + "%";
+    }
+
+    function subirProgreso() {
+      progreso.fuerza = Math.min(progreso.fuerza + 10, 100);
+      progreso.cardio = Math.min(progreso.cardio + 5, 100);
+      progreso.flex = Math.min(progreso.flex + 7, 100);
+      actualizarBarras();
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem("username");
+      window.location.href = "login.html"; // Puedes cambiar esto según tu ruta real
+    }
+
+    actualizarBarras();
+  </script>
+</body>
+</html>
+
