@@ -11,7 +11,7 @@
 
 /* Fondo */
 body {
-    background: url('../frontend/ai-generated-exercise-machines-in-a-gym-free-photo.jpg') no-repeat center center fixed;
+    background: url('../static/ai-generated-exercise-machines-in-a-gym-free-photo.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
